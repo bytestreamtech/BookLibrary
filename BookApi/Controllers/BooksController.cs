@@ -18,6 +18,10 @@ namespace BookApi.Controllers
             _bookRepository = bookRepository;
         }
 
+        /// <summary>
+        /// Retrieves all books.
+        /// </summary>
+        /// <returns>A list of books.</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
         {
@@ -25,6 +29,11 @@ namespace BookApi.Controllers
             return Ok(books);
         }
 
+        /// <summary>
+        /// Retrieves a book by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the book.</param>
+        /// <returns>The requested book.</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Book>> GetBook(int id)
         {
@@ -36,6 +45,11 @@ namespace BookApi.Controllers
             return Ok(book);
         }
 
+        /// <summary>
+        /// Creates a new book.
+        /// </summary>
+        /// <param name="book">The book to create.</param>
+        /// <returns>The created book.</returns>
         [HttpPost]
         public async Task<ActionResult<Book>> CreateBook(Book book)
         {
@@ -43,6 +57,12 @@ namespace BookApi.Controllers
             return CreatedAtAction(nameof(GetBook), new { id = book.Id }, book);
         }
 
+        /// <summary>
+        /// Updates an existing book.
+        /// </summary>
+        /// <param name="id">The ID of the book to update.</param>
+        /// <param name="book">The updated book object.</param>
+        /// <returns>No content if successful.</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateBook(int id, Book book)
         {
@@ -55,6 +75,11 @@ namespace BookApi.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Deletes a book by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the book to delete.</param>
+        /// <returns>No content if successful.</returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBook(int id)
         {
