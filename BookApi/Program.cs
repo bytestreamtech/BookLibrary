@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using BookApi.Data;
 using BookApi.Repositories;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAllPolicy",
         builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 });
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -25,6 +28,10 @@ if (app.Environment.IsDevelopment())
 app.UseRouting();
 app.UseCors("AllowAllPolicy");
 app.UseAuthorization();
+
+// Enable Swagger and Swagger UI in all environments
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.MapControllers();
 
