@@ -1,0 +1,39 @@
+# GitHub Actions workflow to build and deploy ASP.NET Core app to Azure Web App (Linux)
+# Docs: https://docs.microsoft.com/azure/app-service/deploy-github-actions?tabs=dotnet-core
+
+name: Deploy ASP.NET Core app to Azure Web App (Linux)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '6.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore BookApi/BookApi.csproj
+
+      - name: Build
+        run: dotnet build BookApi/BookApi.csproj --configuration Release --no-restore
+
+      - name: Publish
+        run: dotnet publish BookApi/BookApi.csproj --configuration Release --output ./publish --no-build
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'booklibrary'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
+          package: ./publish
