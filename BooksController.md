@@ -84,13 +84,12 @@ Base Route: `/api/books`
 - **Route:** `PUT /api/books/{id}`
 - **Description:** Updates the details of an existing book.
 - **Request:**
-  - `id` (int, required): The ID of the book to update.
-  - **Request Body:** JSON object representing the updated book (must include `id`).
+  - `id` (int, required): The ID of the book to update (provided in the URL).
+  - **Request Body:** JSON object representing the updated book (excluding `id`).
 
 #### Example Request
 ```json
 {
-  "id": 2,
   "title": "Updated Book",
   "author": "Updated Author",
   "publishedYear": 2024
