@@ -11,7 +11,7 @@ builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddControllers();
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(AllowAllPolicy,
+    options.AddPolicy("AllowAllPolicy",
         builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 });
 
@@ -23,7 +23,7 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 app.UseRouting();
-app.UseCors("AllowAll");
+app.UseCors("AllowAllPolicy");
 app.UseAuthorization();
 
 app.MapControllers();
