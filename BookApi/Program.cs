@@ -35,4 +35,12 @@ app.UseSwaggerUI();
 
 app.MapControllers();
 
+// Seed the database with initial data
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<BookContext>();
+    await db.Database.MigrateAsync();
+    await db.SeedAsync();
+}
+
 app.Run();
