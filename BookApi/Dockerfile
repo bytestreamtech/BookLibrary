@@ -20,5 +20,6 @@ COPY --from=build /app/publish .
 # Expose port 8080
 EXPOSE 8080
 
+
 # Set the entrypoint
 ENTRYPOINT ["dotnet", "BookApi.dll"]
