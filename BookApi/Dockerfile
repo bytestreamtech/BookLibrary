@@ -17,8 +17,8 @@ FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
 WORKDIR /app
 COPY --from=build /app/publish .
 
-# Expose port 80
-EXPOSE 80
+# Expose port 8080
+EXPOSE 8080
 
 # Set the entrypoint
 ENTRYPOINT ["dotnet", "BookApi.dll"]
