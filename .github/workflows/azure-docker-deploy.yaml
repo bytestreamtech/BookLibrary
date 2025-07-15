@@ -4,7 +4,7 @@ name: Build and Deploy Docker to Azure App Service
 on:
   push:
     branches:
-      - main
+      - main    
   workflow_dispatch:
     inputs:
       environment:
@@ -19,7 +19,7 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    environment: ${{ github.event.inputs.environment }}
+    environment: ${{ github.event.inputs.environment || 'dev' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -41,7 +41,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    environment: ${{ github.event.inputs.environment }}
+    environment: ${{ github.event.inputs.environment || 'dev' }}
     needs: build-and-push
     steps:
       - name: Log in to Azure
