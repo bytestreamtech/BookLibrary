@@ -92,5 +92,11 @@ namespace BookApi.Controllers
             await _bookRepository.DeleteBookAsync(id);
             return NoContent();
         }
+
+        [HttpGet("test")]
+        public ActionResult<string> TestEndpoint()
+        {
+            return "This is a test endpoint.";
+        }
     }
 }
