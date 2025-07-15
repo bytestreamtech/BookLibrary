@@ -5,10 +5,21 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - prod
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -30,6 +41,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
     needs: build-and-push
     steps:
       - name: Log in to Azure
